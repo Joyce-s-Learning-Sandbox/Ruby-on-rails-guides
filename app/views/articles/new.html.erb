@@ -2,41 +2,6 @@
 
 <h1>New Article</h1>
 
-<%= form_with scope: :article, url: articles_path, local: true do |form| %>
-<!-- When you call form_with, you pass it an identifying scope for this form. In this case, it's the symbol  :article. This tells the form_with helper what this form is for. Inside the block for this method, the FormBuilder object - represented by form - is used to build two labels and two text fields, one each for the title and text of an article. Finally, a call to submit on the form object will create a submit button for the form. -->
-
-<!--create for error-->
-  <% if @article.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <!--pluralize is a rails helper that takes a number and a string as its arguments. If the number is greater than one, the string will be automatically pluralized.-->
-        <%= pluralize(@article.errors.count, "error") %> prohibited
-        this article from being saved:
-      </h2>
-      <ul>
-        <% @article.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-<!--create the form-->
-  <p> 
-    <%= form.label :title %>
-    <br />
-    <%= form.text_field :title %>
-  </p>
-  
-  <p> 
-    <%= form.label :text %>
-    <br />
-    <%= form.text_field :text %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<%= render 'form' %>
 
 <%= link_to 'Back', articles_path %>

@@ -1,0 +1,40 @@
+<!--Our edit page looks very similar to the new page; in fact, they both share the same code for displaying the form. Let's remove this duplication by using a view partial. By convention, partial files are prefixed with an underscore.-->
+
+<!--Everything except for the form_with declaration remained the same. The reason we can use this shorter, simpler form_with declaration to stand in for either of the other forms is that @article is a resource corresponding to a full set of RESTful routes, and Rails is able to infer which URI and method to use. For more information about this use of form_with, see Resource-oriented style.
+-->
+
+<%= form_with model: @article, local: true do |form| %>
+
+<!--passing a model object to form_with, like model: @article in the edit view above, will cause form helpers to fill in form fields with the corresponding values of the object. Passing in a symbol scope such as scope: :article, as was done in the new view, only creates empty form fields.-->
+
+  <% if @article.errors.any? %>
+    <div id = "error_explanation">
+      <h2>
+        <%= pluraliza(@article.errors.count, "error") %>
+        prohibited this article from being saved:
+      </h2>
+      <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <p>
+    <%= form.label :title %>
+    <br>
+    <%= form.text_field :title %>
+  </p>
+  
+  <p>
+    <%= form.label :text %>
+    <br>
+    <%= form.text_field :text %>
+  </p>
+  
+    <p>
+    <%= form.submit %>
+  </p>
+  
+<% end %>
