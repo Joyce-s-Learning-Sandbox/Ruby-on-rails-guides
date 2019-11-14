@@ -1,0 +1,42 @@
+<!--Edit is the precursor action to render a form, that upon submitting, runs the Update action. (the view is typically redirected back to the index view showing a list of similar items you already created)
+
+-->
+
+<h1>Edit Mode</h1>
+
+<%= form_with(model: @article, local: true) do |form| %>
+<!--passing a model object to form_with, like model: @article in the edit view above, will cause form helpers to fill in form fields with the corresponding values of the object. Passing in a symbol scope such as scope: :article, as was done in the new view, only creates empty form fields.-->
+
+  <% if @article.errors.any? %>
+    <div id = "error_explanation">
+      <h2>
+        <%= pluraliza(@article.errors.count, "error") %>
+        prohibited this article from being saved:
+      </h2>
+      <ul>
+        <% @article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <p>
+    <%= form.label :title %>
+    <br>
+    <%= form.text_field :title %>
+  </p>
+  
+  <p>
+    <%= form.label :text %>
+    <br>
+    <%= form.text_field :text %>
+  </p>
+  
+    <p>
+    <%= form.submit %>
+  </p>
+  
+<% end %>
+
+<%= link_to "Back", articles_path %>
